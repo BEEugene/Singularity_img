@@ -1,0 +1,35 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:1.15.0-gpu-py3
+
+%files
+
+# device.py /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/framework/
+# device.py /
+device_spec.py /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/framework/device_spec.py
+device_spec.py /
+
+
+%post
+    # cp -f /device.py /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/framework/
+    cp -f /device_spec.py /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/framework/
+	
+	apt-get update 
+
+	lsb_release -a
+    apt-get install -y libsm6 libxext6 libxrender-dev
+    apt-get update
+	apt-get install -y graphviz
+
+	pip install --upgrade pip
+	pip install segmentation-models
+	pip install albumentations==0.3.2
+
+    pip install opencv-python keras
+    pip install pydot==1.2.4 sklearn
+    pip install graphviz imutils
+
+    pip install tqdm progressbar2 
+    pip install pillow  pandas matplotlib seaborn
+
+%labels
+    Author BEEugene
